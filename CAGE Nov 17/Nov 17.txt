@@ -1,0 +1,55 @@
+Check constraints in training set
+Compare graphs used for training and graph used for evaluation
+Number of nodes and edges in the two cases of training and testing graphs and are they the same. 
+Number of features in example datasets (attributes), and number of attributes supported. 
+Methods to find highly variable genes: scanpy package "https://scanpy.readthedocs.io/en/stable/generated/scanpy.pp.highly_variable_genes.html#scanpy.pp.highly_variable_genes"
+
+
+Time taken: (Started measuring from DEMO portion)
+
+Cora: 0.0, 0.3, 1.8, 0.0, 0.0, 2m 17.3, 14.5, 1m 45.4
+
+Citeseer: 0.0, 0.2, 6.2, 0.0, 0.0, 3m 38.7, 31.5, 2m 38.3
+
+mcc: 0.0, 0.3, 3.2, 0.0, 0.0, 2m 1.7, 21.9, 1m 28.0
+
+wiki: 0.0, 0.2, 14.5, 0.0, 3m 23.5, 17.6, over 1hr (terminated before it could finish)
+
+
+Changes made:
+1) Load Data: Use self.edge_adj_matrix = np.array(nx.to_numpy_array(self.graph, nodelist=sorted(self.graph.nodes())))
+
+
+29 Nov:
+Try to use CAGE with biological data (single cell data)
+Use squidpy package, has some example datasets to test out on (https://squidpy.readthedocs.io/en/stable/notebooks/tutorials/index.html)
+Also contains function: https://squidpy.readthedocs.io/en/stable/notebooks/examples/graph/compute_spatial_neighbors.html, use this to build graph of the spatial relationships btw cells
+Test out first, see if CAGE can accept, if not then write function to convert into a np array representation that CAGE can accept. 
+
+There are 2 types of ways to implement, coord or visium, https://squidpy.readthedocs.io/en/stable/api/squidpy.gr.spatial_neighbors.html
+Attributes: Gene expression data, in the AnnData.X array (Matrix of cell x gene), adata.obsp
+
+Returns
+: If copy = True, returns a tuple with the spatial connectivities and distances matrices.
+
+Otherwise, modifies the adata with the following keys:
+
+anndata.AnnData.obsp ['{key_added}_connectivities'] - the spatial connectivities.
+
+anndata.AnnData.obsp ['{key_added}_distances'] - the spatial distances.
+
+anndata.AnnData.uns ['{key_added}'] - dict containing parameters.
+
+
+Test on data sets: https://squidpy.readthedocs.io/en/stable/api.html#module-squidpy.datasets
+Visium are on a grid, start with the non-visium data sets. 
+
+https://squidpy.readthedocs.io/en/stable/api/squidpy.datasets.seqfish.html#squidpy.datasets.seqfish
+Get access to these datasets by loading these functions
+
+
+Write the function to convert returned anndata graph to one CAGE can analyze. 
+What would successful predictions look like? (Answer later)
+
+
+
